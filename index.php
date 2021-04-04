@@ -59,12 +59,13 @@ date_default_timezone_set('Etc/GMT-3');
 		</div>
 	</div>
 	<!--    Center    -->
-	<div onclick() class="fleft printpg" style="width: calc( 100vw - 70px );height: 100vh;overflow: auto;">
+	<div onclick() id="central" class="fleft printpg" style="width: calc( 100vw - 70px );height: 100vh;overflow: auto;">
 		<?php 
+		//include("createform2.php");
 		if(isset($_GET['pg']))
 		{
 			include($_GET['pg']."form.php");
-		} 
+		}
 		else
 		{
 			include("main.php");

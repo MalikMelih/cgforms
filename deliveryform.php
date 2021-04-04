@@ -1,4 +1,7 @@
 <?php   /* Start Php Function */
+//$date = "00/00/0000";
+//$id = "00000000";
+$_SESSION['group'] = isset($_GET['group']);
     if(isset($_GET['no']))
     {
         $fno = $_GET['no'];
@@ -69,11 +72,11 @@
   <header>
   <div class="row align-items-center">
     <div class="col-sm-7 text-center text-sm-left mb-3 mb-sm-0">
-      <img id="logo" src="https://evezne.net/assets/images/company_logo/f3012.png" title="Koice" alt="Koice" style="height: 50px;">
+      <img id="logo" src="assets/img/logo/<?php echo $_SESSION['group']; ?>logo.png" style="height: 50px;">
     </div>
     <div class="col-sm-5 text-center text-sm-right" style="margin-left: -8%;">
-      <h4 class="text-7 mb-0" style="color: #3bb7e8;">Malzeme Teslim</h4>
-      <h2 class="mb-0" style="color: #8dcf69; font-size: 1.2rem">Formu</h2>
+      <h4 class="text-7 mb-0" id="<?php echo $_SESSION['group']; ?>-title">Malzeme Teslim</h4>
+      <h2 class="mb-0" id="<?php echo $_SESSION['group']; ?>-text" style="font-size: 1.2rem">Formu</h2>
     </div>
   </div>
   <hr>
@@ -206,6 +209,14 @@
 }
 else    /* If Not give an ID Empty Page Load */
 {
+  if(isset($_GET['eno']))
+    {
+        $eno = $_GET['eno'];
+    }
+    else
+    {
+        $eno = "";
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -224,11 +235,11 @@ else    /* If Not give an ID Empty Page Load */
   <header>
   <div class="row align-items-center">
     <div class="col-sm-7 text-center text-sm-left mb-3 mb-sm-0">
-      <img id="logo" src="https://evezne.net/assets/images/company_logo/f3012.png" title="Koice" alt="Koice" style="height: 50px;">
+      <img id="logo" src="assets/img/logo/<?php echo $_SESSION['group']; ?>logo.png" style="height: 50px;">
     </div>
     <div class="col-sm-5 text-center text-sm-right" style="margin-left: -8%;">
-      <h4 class="text-7 mb-0" style="color: #3bb7e8;">Malzeme Teslim</h4>
-      <h2 class="mb-0" style="color: #8dcf69; font-size: 1.2rem">Formu</h2>
+      <h4 class="text-7 mb-0" id="<?php echo $_SESSION['group']; ?>-title">Malzeme Teslim</h4>
+      <h2 class="mb-0" id="<?php echo $_SESSION['group']; ?>-text" style="font-size: 1.2rem">Formu</h2>
     </div>
   </div>
   <hr>
@@ -246,10 +257,10 @@ else    /* If Not give an ID Empty Page Load */
     <div>Teslim Tarihi</div>
 </div>
 <div class="fleft box-2">
-    <a href="qrcode.php?pg=delivery&type=sno">
+    <a class="d-print-inpt" href="qrcode.php?pg=services">
         <div class="fa fa-qrcode" id="form-qr"></div>
     </a>
-    <input id="eno" style=" width: calc( 100% - 40px );" <?php echo "value='".$sno."'";?>>
+    <input id="eno" class="d-print-qr" <?php echo "value='".$eno."'";?>>
     <input>
     <input>
 </div>
@@ -349,7 +360,7 @@ else    /* If Not give an ID Empty Page Load */
     const qrCode = new QRCodeStyling({
       width: 60,
       height: 60,
-      data: "<?php echo $id; ?>",
+      data: "<?php echo $id." ".$eno; ?>",
       dotsOptions: {
         color: "#000",
         type: "square"

@@ -3,6 +3,7 @@
 @import "positions.css";
 @import "animations.css";
 @import "test.css";
+@import "canvas-comp.css";
 @import url("../thirdpart/fontawesome/css/all.css");
 html {
     overflow: hidden;
@@ -199,4 +200,44 @@ body {
 .fas.fa-moon:hover {
     background-color: black;
     color: #5a5a5a;
+}
+
+#-title{
+    color: #3bb7e8;
+}
+
+#-text{
+    color: #8dcf69;
+}
+
+#gaz-title{
+    color: #3bb7e8;
+}
+
+#gaz-text{
+    color: #8dcf69;
+}
+
+#holding-title{
+    color: #ed252d;
+}
+
+#holding-text{
+    color: #ef4a50;
+}
+
+#doviz-title{
+    color: #272727;
+}
+
+#doviz-text{
+    color: #7d7d7d;
+}
+
+#otomotiv-title{
+    color: #067eb9;
+}
+
+#otomotiv-text{
+    color: #58a6c9;
 }

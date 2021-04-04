@@ -59,6 +59,7 @@
     height: 100%;
     background-color: #1a1a1a;
     max-width: 70px;
+    box-sizing: content-box !important;
 }
 
 .left-bar>div>a>div:hover {
@@ -210,6 +211,10 @@
 .details-box2 {
     width: 65%;
 }
+
+.d-print-qr {
+    width: calc(100% - 40px)!important;
+  }
 
 .details-box1>input,
 .details-box2>input {

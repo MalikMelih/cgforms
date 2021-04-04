@@ -7,6 +7,14 @@
 		errormsg($_SESSION['err']);
 		$_SESSION['err']=null;
 	}
+	if(isset($_GET['c']))
+	{
+		$logo = $_GET['c'];
+	}
+	else
+	{
+		$logo = "logo";
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -19,7 +27,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <script type="text/javascript" src="js/main.js"></script>
 	<!-- Include Favicon -->
-	<link rel="icon" type="image/png" href="assets/img/logo/logo.png">
+	<link rel="icon" type="image/png" href="assets/img/logo/<?php echo $logo; ?>.png">
 </head>
 
 <body>
@@ -38,7 +46,7 @@
 	    float: left;
 	    width: 100%;
 	    height: 100%;
-	    background-image: url(assets/img/logo/logo.png);
+	    background-image: url(assets/img/logo/<?php echo $logo; ?>.png);
 	    background-size: 20%;
 	    background-repeat: no-repeat;
 	    background-position: 5% center;
