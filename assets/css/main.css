@@ -36,12 +36,36 @@ body {
 
 /*	Test	*/
 
-#search-bar{
+.bars:hover{
+    border-left: 2px solid #3bb7e8;
+    width: 66px;
+}
+
+#ab{
+    background-color: black;
+    line-height: 20px;
+    color: white;
+    padding: 18px;
+    height: 20px;
+    width: 285px;
+    bottom: 56px;
+    border-right: 4px solid #3bb7e8;
+    font-size: 14px;
+    text-align: left;
+}
+    #ab:hover
+    {
+       background-color: #8dcf69;
+       border-color: #8dcf69;
+       color: #2a2a2a;
+    }
+
+.search-bar{
     position: fixed;
     width: 350px;
     height: 56px;
     transition: 0.5s;
-    z-index: inherit;
+    z-index: 1;
 }
 
 #sb-div{
@@ -75,8 +99,6 @@ body {
     background-color: black;
     border: 0;
     border-right: 4px solid #3bb7e8;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
     text-align: left;
     line-height: 16px;
     color: white;
@@ -93,14 +115,16 @@ body {
         height: 16px;
         border: 0;
         border-right: 4px solid #8dcf69;
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
         text-align: left;
         line-height: 16px;
         padding: 20px;
         transition: 0.5s;
         z-index: 1;
     }
+
+        #sb-input-qr::placeholder {
+            color: #2a2a2a;
+        }
 
     #form-qr
     {
@@ -120,23 +144,6 @@ body {
             color: black;
             background-color: #ccc;
         }
-
-.search-bar {
-    position: fixed;
-    width: 220px;
-    height: 16px;
-    background-color: black;
-    border: 0;
-    border-right: 4px solid #3bb7e8;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    text-align: left;
-    line-height: 16px;
-    color: white;
-    padding: 20px;
-    transition: 0.5s;
-    z-index: 1;
-}
 
 .brcd>svg {
     display: block;
@@ -182,4 +189,14 @@ body {
 .data-box:hover> :before {
     transition: 0.45s;
     color: #f0f0f0;
+}
+
+.fas.fa-sun:hover {
+    background-color: #ffffff;
+    color: #1a1a1a;
+}
+
+.fas.fa-moon:hover {
+    background-color: black;
+    color: #5a5a5a;
 }

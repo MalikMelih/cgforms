@@ -1,5 +1,5 @@
 <?php
-    include("assets/db.php");
+    include("assets/db");
     session_start();
     if(isset($_POST["no"]) || isset($_GET["no"]))
     {

@@ -8,6 +8,20 @@ if(isset($_SESSION["err"]) && $_SESSION["err"]!=null)
 		$_SESSION['err']=null;
 	}
 
+	if(isset($_GET['th']))
+	{
+		if($_GET['th']==1)
+		{
+			$sql = "UPDATE cgusers SET U_Theme = 0 WHERE U_Nick = '".$_SESSION['Nick']."';";
+		}
+		else
+		{
+			$sql = "UPDATE cgusers SET U_Theme = 1 WHERE U_Nick = '".$_SESSION['Nick']."';";
+		}
+		mysqli_query($db, $sql);
+		header('Location: ' . $_SERVER['HTTP_REFERER']);
+	}
+
 	//QR Kod Çalışması İçin Gerekli
 	if(isset($_GET['qr']))
     {

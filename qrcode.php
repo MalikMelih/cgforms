@@ -9,7 +9,8 @@ session_start();
     <div id="loadingMessage" style="margin: auto; text-align: center;">🎥 Kamera kullanım iznini kabul ettiğinizden emin olunuz!</div>
     <canvas id="canvas" hidden style="display: block; margin: auto;"></canvas>
     <script>
-      var page =  "<?php
+      var page = 
+      "<?php
       if($_GET['pg']=="index")
       {
         echo "search.php?no=";

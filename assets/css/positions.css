@@ -29,12 +29,14 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    max-width: 70px;
-    overflow: auto;
+    width: 70px;
+    overflow: hidden;
+    text-align: center;
 }
 
 .flbottom>a>div {
     float: left;
+    width: 100%;
 }
 
 .lgbarw {
@@ -65,7 +67,7 @@
 
 .lbbtns {
     font-size: 17px;
-    padding: 24px;
+    padding: 19px 0;
 }
 
 

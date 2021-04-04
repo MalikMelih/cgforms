@@ -19,8 +19,8 @@ document.onkeydown = function(evt) {
         isEscape = (evt.keyCode === 27);
     }
     if (isEscape) {
-        document.getElementById('tb').style.left = "-400px";
-        document.getElementById('search-bar').style.left = "-400px";
+        document.getElementById('ab').style.left = "-400px";
+        document.getElementById('sb').style.left = "-400px";
     }
 };
 

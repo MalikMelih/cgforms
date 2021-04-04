@@ -17,6 +17,10 @@
     line-height: 40px;
 }
 
+    .fsl-header > div {
+    float: left;
+    }
+
 .fslh-usr {
     width: 7%;
     height: 100%;
@@ -59,6 +63,12 @@
     border-bottom: 1px solid #ecf0fa;
     line-height: 70px;
 }
+
+    .fsl-data > div,
+    .fsl-data > div > div,
+    .fsl-data > a > div {
+    float: left;
+    }
 
 .fsld-usr {
     width: 10%;
@@ -113,8 +123,12 @@
     font-size: 14px;
     padding: 0 2%;
 }
+    .fsld-act > a {
+        color: white;
+    }
 
 #fsld-act-icns {
+    float: left;
     width: 30px;
     height: 30px;
     border-radius: 2px;
