@@ -1,0 +1,54 @@
+body {
+    background-color: #5a5a5a;
+}
+
+.data-box {
+    background-color: #3a3a3a;
+}
+
+.data-box:hover {
+    background-color: #1b1b1b;
+}
+
+.lblb-bg {
+    color: #1b1b1b;
+}
+
+.lblb-ttl {
+    color: #1b1b1b;
+}
+
+.lblb-btn {
+    background-color: #3a3a3a;
+}
+
+.lblb-btn:hover {
+    background-color: #1b1b1b;
+}
+
+.printpg {
+    background-color: #5a5a5a;
+}
+
+.footer {
+    background-color: #3a3a3a;
+}
+
+
+/*  Test.css  */
+
+.fsl-bg {
+    width: 100%;
+    height: 100%;
+    background-color: #5a5a5a;
+}
+
+.fsl-main,
+.fsl-header {
+    background-color: #3a3a3a;
+    color: white;
+}
+
+.fsl-data-bg {
+    background-color: #2a2a2a;
+}

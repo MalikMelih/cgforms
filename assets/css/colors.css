@@ -1,0 +1,44 @@
+.black
+{
+    color: #1a1a1a;
+}
+
+.drkgray
+{
+    color: #3a3a3a;
+}
+
+.gray
+{
+    color: #5a5a5a;
+}
+
+.cgblue
+{
+    color: #3bb7e8;
+}
+
+.bg-cgblue
+{
+    background-color: #3bb7e8;
+}
+
+    .cgbluehvr:hover
+    {
+       color: #3bb7e8;
+    }
+
+.cggreen
+{
+    color: #8dcf69;
+}
+
+    .cgreenhvr:hover
+    {
+        color: #8dcf69;
+    }
+
+.white
+{
+    color: white;
+}
