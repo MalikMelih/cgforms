@@ -74,17 +74,17 @@ else
                 <div>Kargo Takip Formu</div>
             </div>
         </a>
-        <a href="?pg=services&step=3&group=<?php echo $_GET['group'];?>">
+        <a href="?pg=services&group=<?php echo $_GET['group'];?>">
             <div id="rc-type" class="rc-items fas fa-box-open white" onclick="chg('services','<?php echo $_GET['group'];?>')" onmouseenter="chg('services','<?php echo $_GET['group'];?>')">
                 <div>Cihaz Servis Formu</div>
             </div>
         </a>
-        <a href="?pg=delivery&step=3&group=<?php echo $_GET['group'];?>">
+        <a href="?pg=delivery&group=<?php echo $_GET['group'];?>">
             <div id="rc-type" class="rc-items fas fa-box white" onclick="chg('delivery','<?php echo $_GET['group'];?>')" onmouseenter="chg('delivery','<?php echo $_GET['group'];?>')">
                 <div>Malzeme Teslim Formu</div>
             </div>
         </a>
-        <a href="?pg=scrap&step=3&group=<?php echo $_GET['group'];?>">
+        <a href="?pg=scrap&group=<?php echo $_GET['group'];?>">
             <div id="rc-type" class="rc-items fas fa-dolly-flatbed white" onclick="chg('scrap','<?php echo $_GET['group'];?>')" onmouseenter="chg('scrap','<?php echo $_GET['group'];?>')">
                 <div>Hurda Cihaz Formu</div>
             </div>
@@ -96,6 +96,20 @@ else
     }
     else
     {
+        if (isset($_GET['type']))
+        {
+            $hlink = "?pg=".$_GET['type']."&group=holding";
+            $dlink = "?pg=".$_GET['type']."&group=doviz";
+            $olink = "?pg=".$_GET['type']."&group=otomotiv";
+            $glink = "?pg=".$_GET['type']."&group=gaz";
+        }
+        else
+        {
+            $hlink = "?pg=create&step=2&group=holding";
+            $dlink = "?pg=create&step=2&group=doviz";
+            $olink = "?pg=create&step=2&group=otomotiv";
+            $glink = "?pg=create&step=2&group=gaz";
+        }
 ?>
 
 <div style="position: absolute;width: 44vw;height: 83vh;/* padding: 2vw; */background-color: #101010;border-radius: 10px;right: 5vw;bottom: 0;overflow: hidden;">
@@ -111,22 +125,22 @@ else
 
     
     <div id="right-canvas">
-    <a href="?pg=create&step=2&group=holding">
+    <a href="<?php echo $hlink;?>">
             <div class="rc-items" style="background-image: url(assets/img/logo/light/holding.png);"  onclick="chg('holding')" onmouseenter="chg('holding')">
                 <div style="margin: 6%;font-size: 20px;">Holding Grubu</div>
             </div>
         </a>
-        <a href="?pg=create&step=2&group=doviz">
+        <a href="<?php echo $dlink;?>">
             <div class="rc-items" style="background-image: url(assets/img/logo/light/doviz.png);"  onclick="chg('doviz')" onmouseenter="chg('doviz')">
                 <div style="margin: 6%;font-size: 20px;">Döviz Grubu</div>
             </div>
         </a>
-        <a href="?pg=create&step=2&group=otomotiv">
+        <a href="<?php echo $olink;?>">
             <div class="rc-items" style="background-image: url(assets/img/logo/light/otomotiv.png);" onclick="chg('otomotiv')" onmouseenter="chg('otomotiv')">
                 <div id="demo" style="margin: 6%;font-size: 20px;">Otomotiv Grubu</div>
             </div>
         </a>
-        <a href="?pg=create&step=2&group=gaz">
+        <a href="<?php echo $glink;?>">
             <div class="rc-items" style="background-image: url(assets/img/logo/light/cg.png);" onclick="chg('gaz')" onmouseenter="chg('gaz')">
                 <div id="demo" style="margin: 6%;font-size: 20px;">Gaz Grubu</div>
             </div>

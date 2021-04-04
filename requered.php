@@ -3,7 +3,6 @@ include("alert.php"); //Error Alert Requered Page
 include("assets/db"); //Database Connection Page
 
 	//Display Error Data
-
 	if(isset($_SESSION["err"]) && $_SESSION["err"]!=null)
 	{
 		errormsg($_SESSION['err']);
@@ -21,7 +20,6 @@ include("assets/db"); //Database Connection Page
 	}
 
 	//Theme Config
-
 	if(isset($_GET['th']))
 	{
 		if($_GET['th']==1)
@@ -58,7 +56,6 @@ include("assets/db"); //Database Connection Page
     }
 
 	//Login Session Controls
-
 	$nick = $_SESSION['Nick'];
 
 	$mac='UNKNOWN';

@@ -9,6 +9,20 @@ $user = $_POST['user'];
 
 $sql = "INSERT INTO forms (F_No, F_Company, F_Date, F_User, F_Type, F_ENo , F_SNo, F_Pdf, U_Nick) VALUES ('".$id."', '".$group."', '".date("d/m/Y")."', '".$user."', '".$sel."', '".$eno."', '".$sno."', 0, '".$nick."')";
 if (mysqli_query($db, $sql)) {
+    if($sel=="services")
+    {
+
+    }
+    else if($sel=="delivery")
+    {
+
+    }
+    else if($sel=="cargo")
+    {
+
+    }
+    else if($sel=="")
+
     $sql = "INSERT INTO ".$sel." (F_No, F_Date, F_User, F_ENo, F_SNo) VALUES ('".$id."', '".$user."', '".$eno."', '".$sno."')";
     if (mysqli_query($db, $sql)) {
         header("location:index.php");

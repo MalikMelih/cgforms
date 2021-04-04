@@ -35,20 +35,38 @@
     {
         $fno = $_GET['no'];
         $fdate = $_SESSION['fdate'];
-        $fperson = $_SESSION['fperson'];
-        $fverify = $_SESSION['fverify'];
+        $fstaff = $_SESSION['fstaff'];
+        $fcustomer = $_SESSION['fcustomer'];
         $feno = $_SESSION['feno'];
         $type = $_SESSION['type'];
-        $sql = "SELECT * FROM services WHERE F_No = '$fno'";
+        $sql = "SELECT * FROM forms LEFT JOIN cargo ON forms.F_No=cargo.F_No WHERE forms.F_No = '$fno'";
         $result = mysqli_query($db,$sql);
     	$row = mysqli_fetch_array($result);
-        if(isset($row['SV_ID']))
+        if(isset($row['C_ID']) && $_GET['group']==$row[2])
         {
+            $user=$row[4];
+            $eno=$row[8];
+            $sno=$row[9];
+            $tno=$row[14];
+            $direct=$row[15];
+            $type=$row[16];
+            $brand=$row[17];
+            $model=$row[18];
 
+            $dcperson=$row[19];
+            $dcname=$row[20];
+            $dcadress=$row[21];
+            $dcphone=$row[22];
+
+            $rcperson=$row[23];
+            $rcname=$row[24];
+            $rcadress=$row[25];
+            $rcphone=$row[26];
+            $detail=$row[27];
         }
         else
         {
-            header("location:index.php?err=1");
+            ?><script>window.location.href = 'index.php?err=1';</script><?php
         }
 ?>
 <div class="row">
@@ -64,24 +82,23 @@
     <div>Kargo Yönü</div>
 </div>
 <div class="fleft box-2">
-    <input value="#">
-    <input>
-    <input>
-    <input>
+    <input value="#<?php echo $eno;?>">
+    <input value="<?php echo $user;?>">
+    <input value="<?php echo $tno;?>">
     <div>
         <form>
-            <input type="radio" id="outgoing" name="yesno" value="1" class="fleft">
+            <input type="radio" id="outgoing" name="yesno" <?php if($direct==0){echo "checked='true'";}?> value="1" class="fleft">
             <label for="outgoing" class="fleft">Giden</label>
-            <input type="radio" id="incoming" name="yesno" value="0" class="fleft">
+            <input type="radio" id="incoming" name="yesno" <?php if($direct==1){echo "checked='true'";}?> value="0" class="fleft">
             <label for="incoming" class="fleft">Gelen</label>
         </form>
     </div>
 </div>
 <div class="fright box-2">
-    <input>
-    <input>
-    <input>
-    <input>
+    <input value="<?php echo $sno;?>">
+    <input value="<?php echo $type;?>">
+    <input value="<?php echo $brand;?>">
+    <input value="<?php echo $model;?>">
 </div>
 <div class="fright box-1">
     <div>Cihaz Seri No</div>
@@ -96,14 +113,16 @@
     <div class="fleft">
     <div class="fleft box-header">Gönderici Firma Bilgileri</div>
 <div class="fleft box-1">
+    <div>Yetkili Adı:</div>
     <div>F. Adı:</div>
     <div>Adresi:</div>
     <div>Telefon No:</div>
 </div>
 <div class="fleft box-4">
-    <input>
-    <input>
-    <input>
+    <input value="<?php echo $dcperson;?>">
+    <input value="<?php echo $dcname;?>">
+    <input value="<?php echo $dcadress;?>">
+    <input value="<?php echo $dcphone;?>">
 </div>
 </div></div>
 <div class="card card-add">
@@ -116,30 +135,30 @@
     <div>Telefon No:</div>
 </div>
 <div class="fleft box-4">
-    <input>
-    <input>
-    <input>
-    <input>
+    <input value="<?php echo $rcperson;?>">
+    <input value="<?php echo $rcname;?>">
+    <input value="<?php echo $rcadress;?>">
+    <input value="<?php echo $rcphone;?>">
 </div>
 </div>
 </div>
 <div class="card card-add">
     <div class="fleft">
         <div class="fleft box-header">Açıklama - Detay</div>
-        <textarea class="fleft detail-box"></textarea>
+        <textarea class="fleft detail-box"><?php echo $detail?></textarea>
     </div>
 </div>
     <div class="row" style="margin-top: 50px;">
-        <div class="col-sm-6 text-sm-right order-sm-1">
-            <strong>Onaylayan Personel:</strong>
-            <address>Ad / Soyad<br>İmza<br>
-            <br></address>
-        </div>
-        <div class="col-sm-6 order-sm-0"> 
-            <strong>Gönderen Personel:</strong>
-            <address>Ad / Soyad<br>İmza<br>
-            <br></address>
-        </div>
+        <div class="col-sm-6 text-sm-right order-sm-1"> <strong>Teslim Alan:</strong>
+            <address>Ad / Soyad<br>İmza<br><br>
+            <p style="color:red;"><?php echo $fcustomer; ?></p>
+            </address>
+            </div>
+        <div class="col-sm-6 order-sm-0"> <strong>Teslim Eden:</strong>
+            <address>Ad / Soyad<br>  İmza<br>
+            <br><p style="color:red;"><?php echo $fstaff; ?></p>
+            </address>
+    </div>
     </div>
 <div id="canvas" class="qr"></div>
 <?php
@@ -197,11 +216,13 @@ else    /* If Not give an ID Empty Page Load */
     <div class="fleft">
     <div class="fleft box-header">Gönderici Firma Bilgileri</div>
 <div class="fleft box-1">
+    <div>Yetkili Adı:</div>
     <div>F. Adı:</div>
     <div>Adresi:</div>
     <div>Telefon No:</div>
 </div>
 <div class="fleft box-4">
+    <input>
     <input>
     <input>
     <input>

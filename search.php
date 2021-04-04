@@ -18,12 +18,13 @@
         if(isset($row[1]))
         {
             $id = $row[1];
+            $_COOKIE['group'] = $row[2];
             $_SESSION['fdate'] = $row[3];
-            $_SESSION['fperson'] = $row[5];
-            $_SESSION['freceiver'] = $row[6];
-            $_SESSION['feno'] = $row[8];
+            $_SESSION['fstaff'] = $row[5];
+            $_SESSION['fcustomer'] = $row[6];
             $_SESSION['type'] = $row[7];
-            header("location:index.php?pg=".$row[7]."&no=".$row[1]);
+            $_SESSION['feno'] = $row[8];
+            header("location:index.php?pg=".$row[7]."&group=".$row[2]."&no=".$row[1]);
         }
         else
         {

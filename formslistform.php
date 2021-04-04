@@ -58,7 +58,7 @@ $i = 0;
         $result = mysqli_query($db,$sql);
         while($row = mysqli_fetch_array($result))
         {
-            if($row[8]==0)
+            if($row[10]==0)
             {
                 $pdf = "PDF Dosyası Bekleniyor...";
                 $bcolor = "style='background-color: darkorange;'";
@@ -81,17 +81,17 @@ $i = 0;
 ?>
         <div class="fleft fsl-data <?php echo $bg;?>">
             <div class="fsld-usr">
-                <img src="assets/img/user/<?php echo $row[9];?>.jpg" class="fsld-usr-img">
+                <img src="assets/img/user/<?php echo $row[11];?>.jpg" class="fsld-usr-img">
             </div>
-            <div class="fsld-uno"><?php echo $row[3];?></div>
+            <div class="fsld-uno"><?php echo $row[4];?></div>
             <div class="fsld-fno">#<?php echo $row[1];?></div>
-            <div class="fsld-fdate"><?php echo $row[2];?></div>
+            <div class="fsld-fdate"><?php echo $row[3];?></div>
             <div class="fsld-fstat" <?php echo $color;?>>
                 <div class="fsld-dot" <?php echo $bcolor;?>></div>
                 <div><?php echo $pdf;?></div>
             </div>
             <div class="fsld-act">
-                <a href="index.php<?php echo "?pg=".$row[6]."&no=".$row[1]; ?>"><div id="fsld-act-icns" class="icn-eye far fa-eye" title="Formu İncele"></div></a>
+                <a href="index.php<?php echo "?pg=".$row[7]."&group=".$row[2]."&no=".$row[1]; ?>"><div id="fsld-act-icns" class="icn-eye far fa-eye" title="Formu İncele"></div></a>
                 <div id="fsld-act-icns" class="icn-pen fas fa-pen-nib" title="Detayları Düzenle"></div>
                 <div id="fsld-act-icns" class="icn-trash fas fa-trash" title="Arşive Kaldır"></div>
                 <div id="fsld-act-icns" class="icn-pdf far fa-file-pdf" title="PDF Belgesi Yükle"></div>
@@ -107,7 +107,7 @@ else
     $result = mysqli_query($db,$sql);
     while($row = mysqli_fetch_array($result))
     {
-        if($row[8]==0)
+        if($row[10]==0)
         {
             $pdf = "PDF Dosyası Bekleniyor...";
             $bcolor = "style='background-color: darkorange;'";
@@ -130,7 +130,7 @@ else
 ?>
         <div class="fleft fsl-data <?php echo $bg;?>">
             <div class="fsld-usr">
-                <img src="assets/img/user/<?php echo $row[9];?>.jpg" class="fsld-usr-img">
+                <img src="assets/img/user/<?php echo $row[11];?>.jpg" class="fsld-usr-img">
             </div>
             <div class="fsld-uno"><?php echo $row[12];?></div>
             <div class="fsld-fno">#<?php echo $row[11];?></div>
@@ -140,7 +140,7 @@ else
                 <div><?php echo $pdf;?></div>
             </div>
             <div class="fleft fsld-act">
-            <a href="index.php<?php echo "?pg=".$row[6]."&no=".$row[11]; ?>"><div id="fsld-act-icns" class="icn-eye far fa-eye" title="Formu İncele"></div></a>
+            <a href="index.php<?php echo "?pg=".$row[7]."&group=".$row[2]."&no=".$row[1]; ?>"><div id="fsld-act-icns" class="icn-eye far fa-eye" title="Formu İncele"></div></a>
                 <div id="fsld-act-icns" class="icn-pen fas fa-pen-nib" title="Detayları Düzenle"></div>
                 <div id="fsld-act-icns" class="icn-trash fas fa-trash" title="Arşive Kaldır"></div>
                 <div id="fsld-act-icns" class="icn-pdf far fa-file-pdf" title="PDF Belgesi Yükle"></div>

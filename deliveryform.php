@@ -37,22 +37,47 @@ $_SESSION['group'] = isset($_GET['group']);
     }
     else if(isset($_GET["no"]))
     {
-        $fno = $_GET['no'];
-        $fdate = $_SESSION['fdate'];
-        $fperson = $_SESSION['fperson'];
-        //$fverify = $_SESSION['fverify'];
-        $feno = $_SESSION['feno'];
-        $type = $_SESSION['type'];
-        $sql = "SELECT * FROM delivery WHERE F_No = '$fno'";
+      $fno = $_GET['no'];
+      $fdate = $_SESSION['fdate'];
+      $fstaff = $_SESSION['fstaff'];
+      $fcustomer = $_SESSION['fcustomer'];
+      $feno = $_SESSION['feno'];
+      $type = $_SESSION['type'];
+        $sql = "SELECT * FROM forms LEFT JOIN delivery ON forms.F_No=delivery.F_No WHERE forms.F_No = '$fno' LIMIT 1";
         $result = mysqli_query($db,$sql);
     	  $row = mysqli_fetch_array($result);
-        if(isset($row['DV_ID']))
+        if(isset($row['DV_ID']) && $_GET['group']==$row[2])
         {
+          $sfno = $row[9];
+          $company = $row[17];
+          $city = $row[18];
+          $dltype = $row[15];
+          $dltime = $row[16];
+          $ria = $row[19];
+          $rin = $row[20];
+          $dia = $row[21];
+          $din = $row[22];
 
+          if(strlen($dia) > 1)
+          {
+              $dia = explode (",",$dia);
+          }
+          if(strlen($din) > 1)
+          {
+              $din = explode (",",$din);
+          }
+          if(strlen($ria) > 1)
+          {
+              $ria = explode (",",$ria);
+          }
+          if(strlen($rin) > 1)
+          {
+              $rin = explode (",",$rin);
+          }
         }
         else
         {
-            header("location:index.php?err=1");
+          ?><script>window.location.href = 'index.php?err=1';</script><?php
         }
 ?>
 <!DOCTYPE html>
@@ -70,20 +95,20 @@ $_SESSION['group'] = isset($_GET['group']);
 <body>  
 <div class="container-fluid invoice-container" id="invoice">
   <header>
-  <div class="row align-items-center">
+    <div class="row align-items-center">
     <div class="col-sm-7 text-center text-sm-left mb-3 mb-sm-0">
-      <img id="logo" src="assets/img/logo/<?php echo $_SESSION['group']; ?>logo.png" style="height: 50px;">
+        <img id="logo" src="assets/img/logo/<?php echo $_COOKIE['group'];?>logo.png" style="height: 50px;">
     </div>
     <div class="col-sm-5 text-center text-sm-right" style="margin-left: -8%;">
-      <h4 class="text-7 mb-0" id="<?php echo $_SESSION['group']; ?>-title">Malzeme Teslim</h4>
-      <h2 class="mb-0" id="<?php echo $_SESSION['group']; ?>-text" style="font-size: 1.2rem">Formu</h2>
+        <h4 class="text-7 mb-0" id="<?php echo $_COOKIE['group']; ?>-title">Malzeme Teslim</h4>
+        <h2 class="mb-0" id="<?php echo $_COOKIE['group']; ?>-text" style="font-size: 1.2rem">Formu</h2>
     </div>
-  </div>
-  <hr>
-  </header>
+    </div>
+    <hr>
+    </header>
   <main>
   <div class="row">
-    <div class="col-sm-6"><strong>Tarih:</strong> <?php echo $date;?></div>
+    <div class="col-sm-6"><strong>Tarih:</strong> <?php echo $fdate;?></div>
     <div class="col-sm-6 text-sm-right"> <strong>Form No:</strong> #<?php echo $fno;?></div>
   </div>
   <div class="card card-add">
@@ -94,13 +119,13 @@ $_SESSION['group'] = isset($_GET['group']);
     <div>Teslim Tarihi</div>
 </div>
 <div class="fleft box-2">
-    <input value="#">
-    <input>
-    <input>
+    <input value="#<?php echo $sfno;?>">
+    <input value="<?php echo $dltype;?>">
+    <input value="<?php echo $dltime;?>">
 </div>
 <div class="fright box-2">
-<input>
-<input>
+<input value="<?php echo $company;?>">
+<input value="<?php echo $city;?>">
 <div><?php echo $name.' '.$sname;?></div>
 </div>
     <div class="fright box-1">
@@ -115,25 +140,21 @@ $_SESSION['group'] = isset($_GET['group']);
         <div class="fleft box-header">Teslim Alınan Malzemeler</div>
         <div class="fleft box-3 text-center">
             <div class="details-header">Adet</div>
-            <input>
-            <input>
-            <input>
-            <input>
-            <input>
-            <input>
-            <input>
-            <input>
+            <?php
+              for($i=0;$i < count($ria);$i++)
+              {
+                echo "<input value='".$ria[$i]."'>";
+              }
+            ?>
         </div>
         <div class="fleft box-4">
             <div class="details-header">Malzeme</div>
-            <input>
-            <input>
-            <input>
-            <input>
-            <input>
-            <input>
-            <input>
-            <input>
+            <?php
+              for($i=0;$i < count($rin);$i++)
+              {
+                echo "<input value='".$rin[$i]."'>";
+              }
+            ?>
         </div>
     </div>
 </div>
@@ -142,38 +163,36 @@ $_SESSION['group'] = isset($_GET['group']);
         <div class="fleft box-header">Teslim Edilen Malzemeler</div>
         <div class="fleft box-3 text-center">
             <div class="details-header">Adet</div>
-            <input>
-            <input>
-            <input>
-            <input>
-            <input>
-            <input>
-            <input>
-            <input>
+            <?php
+              for($i=0;$i < count($dia);$i++)
+              {
+                echo "<input value='".$dia[$i]."'>";
+              }
+            ?>
         </div>
         <div class="fleft box-4">
             <div class="details-header">Malzeme</div>
-            <input>
-            <input>
-            <input>
-            <input>
-            <input>
-            <input>
-            <input>
-            <input>
+            <?php
+              for($i=0;$i < count($din);$i++)
+              {
+                echo "<input value='".$din[$i]."'>";
+              }
+            ?>
         </div>
     </div>
 </div>
     <div class="row" style="margin-top: 50px;">
-    <div class="col-sm-6 text-sm-right order-sm-1"> <strong>Teslim Alan:</strong>
-      <address>Ad / Soyad<br>İmza<br>
-      <br></address>
+      <div class="col-sm-6 text-sm-right order-sm-1"> <strong>Teslim Alan:</strong>
+          <address>Ad / Soyad<br>İmza<br><br>
+          <p style="color:red;"><?php echo $fcustomer; ?></p>
+          </address>
+          </div>
+      <div class="col-sm-6 order-sm-0"> <strong>Teslim Eden:</strong>
+          <address>Ad / Soyad<br>  İmza<br>
+          <br><p style="color:red;"><?php echo $fstaff; ?></p>
+          </address>
+      </div>
     </div>
-    <div class="col-sm-6 order-sm-0"> <strong>Teslim Eden:</strong>
-      <address>Ad / Soyad<br>İmza<br>
-      <br></address>
-    </div>
-  </div>
   <div id="canvas" class="qr"></div>
   </main>
   <!-- Footer -->
@@ -209,14 +228,7 @@ $_SESSION['group'] = isset($_GET['group']);
 }
 else    /* If Not give an ID Empty Page Load */
 {
-  if(isset($_GET['eno']))
-    {
-        $eno = $_GET['eno'];
-    }
-    else
-    {
-        $eno = "";
-    }
+  if(isset($_GET['eno'])) { $eno = $_GET['eno']; } else { $eno = ""; }
 ?>
 <!DOCTYPE html>
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -232,18 +244,18 @@ else    /* If Not give an ID Empty Page Load */
 </head>
 <body>  
 <div class="container-fluid invoice-container" id="invoice">
-  <header>
-  <div class="row align-items-center">
+    <header>
+    <div class="row align-items-center">
     <div class="col-sm-7 text-center text-sm-left mb-3 mb-sm-0">
-      <img id="logo" src="assets/img/logo/<?php echo $_SESSION['group']; ?>logo.png" style="height: 50px;">
+        <img id="logo" src="assets/img/logo/<?php echo $_COOKIE['group'];?>logo.png" style="height: 50px;">
     </div>
     <div class="col-sm-5 text-center text-sm-right" style="margin-left: -8%;">
-      <h4 class="text-7 mb-0" id="<?php echo $_SESSION['group']; ?>-title">Malzeme Teslim</h4>
-      <h2 class="mb-0" id="<?php echo $_SESSION['group']; ?>-text" style="font-size: 1.2rem">Formu</h2>
+        <h4 class="text-7 mb-0" id="<?php echo $_COOKIE['group']; ?>-title">Malzeme Teslim</h4>
+        <h2 class="mb-0" id="<?php echo $_COOKIE['group']; ?>-text" style="font-size: 1.2rem">Formu</h2>
     </div>
-  </div>
-  <hr>
-  </header>
+    </div>
+    <hr>
+    </header>
   <main>
   <div class="row">
     <div class="col-sm-6"><strong>Tarih:</strong> <?php echo $date;?></div>

@@ -18,27 +18,27 @@ else
     {
         $fno = $_GET['no'];
         $fdate = $_SESSION['fdate'];
-        $fperson = $_SESSION['fperson'];
-        $fverify = $_SESSION['fverify'];
+        $fperson = $_SESSION['fstaff'];
+        $fverify = $_SESSION['fcustomer'];
         $feno = $_SESSION['feno'];
         $type = $_SESSION['type'];
-        $sql = "SELECT * FROM scrap WHERE F_No = '$fno'";
+        $sql = "SELECT * FROM forms LEFT JOIN scrap ON forms.F_No=scrap.F_No WHERE forms.F_No = '$fno' LIMIT 1";
         $result = mysqli_query($db,$sql);
-    	$row = mysqli_fetch_array($result);
-        if(isset($row['SF_ID']))
+        $row = mysqli_fetch_array($result);
+        if(isset($row['SF_ID']) && $_GET['group']==$row[2])
         {
-            $fuser = $row[2];
-            $repair=$row[6];
-            $sftype=$row[8];
-            $serial=$row[7];
-            $brand=$row[9];
-            $model=$row[10];
-            $error=$row[11];
-            $detail=$row[12];
+            $fuser=$row[3];
+            $repair=$row[14];
+            $sftype=$row[15];
+            $serial=$row[9];
+            $brand=$row[16];
+            $model=$row[17];
+            $error=$row[18];
+            $detail=$row[19];
         }
         else
         {
-            header("location:index.php?err=1");
+            ?><script>window.location.href = 'index.php?err=1';</script><?php
         }
 ?>
 <!DOCTYPE html>
@@ -55,18 +55,18 @@ else
 </head>
 <body>
 <div class="container-fluid invoice-container" id="invoice">
-        <header>
-            <div class="row align-items-center">
-                    <div class="col-sm-7 text-center text-sm-left mb-3 mb-sm-0">
-                        <img id="logo" src="assets/img/logo/<?php echo $_SESSION['group']; ?>logo.png" style="height: 50px;">
-                    </div>
-                    <div class="col-sm-5 text-center text-sm-right" style="margin-left: -8%;">
-                        <h4 class="text-7 mb-0" id="<?php echo $_SESSION['group']; ?>-title">Hurda Cihaz</h4>
-                        <h2 class="mb-0" id="<?php echo $_SESSION['group']; ?>-text" style="font-size: 1.2rem">Formu</h2>
-                    </div>
-            </div>
-        <hr>
-        </header>
+<header>
+    <div class="row align-items-center">
+    <div class="col-sm-7 text-center text-sm-left mb-3 mb-sm-0">
+        <img id="logo" src="assets/img/logo/<?php echo $_COOKIE['group'];?>logo.png" style="height: 50px;">
+    </div>
+    <div class="col-sm-5 text-center text-sm-right" style="margin-left: -8%;">
+        <h4 class="text-7 mb-0" id="<?php echo $_COOKIE['group']; ?>-title">Hurda Cihaz</h4>
+        <h2 class="mb-0" id="<?php echo $_COOKIE['group']; ?>-text" style="font-size: 1.2rem">Formu</h2>
+    </div>
+    </div>
+    <hr>
+    </header>
         <main>
             <div class="row">
                 <div class="col-sm-6"><strong>Tarih:</strong> <?php echo $fdate;?></div>
@@ -135,17 +135,16 @@ else
 
                 <div class="row" style="margin-top: 50px;">
                     <div class="col-sm-6 text-sm-right order-sm-1"> <strong>İşlemi Onaylayan:</strong>
-                    <address>
-                    Ad / Soyad<br>İmza<br>
-                    <br><p style="color:red;"><?php echo $fperson; ?></p>
-                    </address>
+                        <address>Ad / Soyad<br>İmza<br><br>
+                        <p style="color:red;"><?php echo $fperson; ?></p>
+                        </address>
+                        </div>
+                    <div class="col-sm-6 order-sm-0"> <strong>İşlemi Yapan:</strong>
+                        <address>Ad / Soyad<br>  İmza<br>
+                        <br><p style="color:red;"><?php echo $fverify; ?></p>
+                        </address>
+                    </div>
                 </div>
-                <div class="col-sm-6 order-sm-0"> <strong>İşlemi Yapan:</strong>
-                    <address>Ad / Soyad<br>  İmza<br>
-                    <br><p style="color:red;"><?php echo $fverify; ?></p>
-                    </address>
-                </div>
-            </div>
             <div id="canvas" class="qr"></div>
             </main>
         <!-- Footer -->
@@ -195,18 +194,18 @@ else    /* If Not give an ID Empty Page Load */
 </head>
 <body>
 <div class="container-fluid invoice-container" id="invoice">
-        <header>
-        <div class="row align-items-center">
-                    <div class="col-sm-7 text-center text-sm-left mb-3 mb-sm-0">
-                        <img id="logo" src="assets/img/logo/<?php echo $_SESSION['group']; ?>logo.png" style="height: 50px;">
-                    </div>
-                    <div class="col-sm-5 text-center text-sm-right" style="margin-left: -8%;">
-                        <h4 class="text-7 mb-0" id="<?php echo $_SESSION['group']; ?>-title">Hurda Cihaz</h4>
-                        <h2 class="mb-0" id="<?php echo $_SESSION['group']; ?>-text" style="font-size: 1.2rem">Formu</h2>
-                    </div>
-            </div>
-        <hr>
-        </header>
+<header>
+    <div class="row align-items-center">
+    <div class="col-sm-7 text-center text-sm-left mb-3 mb-sm-0">
+        <img id="logo" src="assets/img/logo/<?php echo $_COOKIE['group'];?>logo.png" style="height: 50px;">
+    </div>
+    <div class="col-sm-5 text-center text-sm-right" style="margin-left: -8%;">
+        <h4 class="text-7 mb-0" id="<?php echo $_COOKIE['group']; ?>-title">Hurda Cihaz</h4>
+        <h2 class="mb-0" id="<?php echo $_COOKIE['group']; ?>-text" style="font-size: 1.2rem">Formu</h2>
+    </div>
+    </div>
+    <hr>
+    </header>
         <main>
             <div class="row">
                 <div class="col-sm-6"><strong>Tarih:</strong> <?php echo $date;?></div>

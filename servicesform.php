@@ -50,19 +50,19 @@ else
     {
         $fno = $_GET['no'];
         $fdate = $_SESSION['fdate'];
-        $fperson = $_SESSION['fperson'];
-        $freceiver = $_SESSION['freceiver'];
+        $fstaff = $_SESSION['fstaff'];
+        $fcustomer = $_SESSION['fcustomer'];
         $feno = $_SESSION['feno'];
         $type = $_SESSION['type'];
-        $sql = "SELECT * FROM services WHERE F_No = '$fno'";
+        $sql = "SELECT * FROM forms LEFT JOIN services ON forms.F_No=services.F_No WHERE forms.F_No = '$fno' LIMIT 1";
         $result = mysqli_query($db,$sql);
     	$row = mysqli_fetch_array($result);
-        if(isset($row['SV_ID']))
+        if(isset($row['SV_ID']) && $_GET['group']==$row[2])
         {
             $fuser=$row['F_User'];
             $dtime=$row['SV_DTime'];
             $dtype=$row['SV_DType'];
-            $serial=$row['SV_Serial'];
+            $serial=$row['F_SNo'];
             $type=$row['SV_Type'];
             $owner=$row['SV_Owner'];
             $brand=$row['SV_Brand'];
@@ -82,7 +82,7 @@ else
             }
             if(strlen($piece) > 1)
             {
-                $pieces = explode (",",$piece);
+                $piece = explode (",",$piece);
             }
             if(strlen($material) > 1)
             {
@@ -91,7 +91,7 @@ else
         }
         else
         {
-            header("location:index.php?err=1");
+            ?><script>window.location.href = 'index.php?err=1';</script><?php
         }
 ?>
 <!DOCTYPE html>
@@ -108,16 +108,16 @@ else
 <body>
 <div class="container-fluid invoice-container" id="invoice">
     <header>
-        <div class="row align-items-center">
-            <div class="col-sm-7 text-center text-sm-left mb-3 mb-sm-0">
-                <img id="logo" src="assets/img/logo/<?php echo $_SESSION['group']; ?>logo.png" style="height: 50px;">
-            </div>
-            <div class="col-sm-5 text-center text-sm-right" style="margin-left: -8%;">
-                <h4 class="text-7 mb-0" id="<?php echo $_SESSION['group']; ?>-title" >Cihaz Servis</h4>
-                <h2 class="mb-0" id="<?php echo $_SESSION['group']; ?>-text" style="font-size: 1.2rem">Formu</h2>
-            </div>
-        </div>
-        <hr>
+    <div class="row align-items-center">
+    <div class="col-sm-7 text-center text-sm-left mb-3 mb-sm-0">
+        <img id="logo" src="assets/img/logo/<?php echo $_COOKIE['group'];?>logo.png" style="height: 50px;">
+    </div>
+    <div class="col-sm-5 text-center text-sm-right" style="margin-left: -8%;">
+        <h4 class="text-7 mb-0" id="<?php echo $_COOKIE['group']; ?>-title">Cihaz Servis</h4>
+        <h2 class="mb-0" id="<?php echo $_COOKIE['group']; ?>-text" style="font-size: 1.2rem">Formu</h2>
+    </div>
+    </div>
+    <hr>
     </header>
     <main>
     <div class="row">
@@ -134,18 +134,26 @@ else
                 <div>Teslim Türü</div>
             </div>
             <div class="fleft box-2">
-                <input value="#<?php echo $feno;?>"/>
-                <input value="<?php echo $fdate;?>"/>
-                <div><?php echo $fuser;?></div>
-                <input value="<?php echo $dtime;?>">
-                <input value="<?php echo $dtype;?>">
+                <?php
+
+                    echo "<input value='".$feno."'>";
+                    echo "<input value='".$fdate."'>";
+                    echo "<div>".$fuser."</div>";
+                    echo "<input value='".$dtime."'>";
+                    echo "<input value='".$dtype."'>";
+
+                ?>
             </div>
             <div class="fright box-2">
-                <input value="<?php echo $serial;?>">
-                <input value="<?php echo $type;?>">
-                <input value="<?php echo $owner;?>">
-                <input value="<?php echo $brand;?>">
-                <input value="<?php echo $model;?>">
+                <?php
+
+                    echo "<input value='".$serial."'>";
+                    echo "<input value='".$type."'>";
+                    echo "<input value='".$owner."'>";
+                    echo "<input value='".$brand."'>";
+                    echo "<input value='".$model."'>";
+
+                ?>
             </div>
             <div class="fright box-1">
                 <div>Cihaz Seri No</div>
@@ -161,19 +169,21 @@ else
             <div class="fleft box-header">Yapılan İşlemler</div>
             <div class="fleft details-box1">
                 <div class="details-header">Belirtilen Arıza</div>
-                <input value="<?php if(isset($errors[0])) {echo $errors[0];}?>">
-                <input value="<?php if(isset($errors[1])) {echo $errors[1];}?>">
-                <input value="<?php if(isset($errors[2])) {echo $errors[2];}?>">
-                <input value="<?php if(isset($errors[3])) {echo $errors[3];}?>">
-                <input value="<?php if(isset($errors[4])) {echo $errors[4];}?>">
+                <?php
+                    for($i=0;$i < count($errors);$i++)
+                    {
+                        echo "<input value='".$errors[$i]."'>";
+                    }
+                ?>
             </div>
             <div class="fleft details-box2">
                 <div class="details-header">Yapılan İşlem</div>
-                <input value="<?php if(isset($procceses[0])) {echo $procceses[0];}?>">
-                <input value="<?php if(isset($procceses[1])) {echo $procceses[1];}?>">
-                <input value="<?php if(isset($procceses[2])) {echo $procceses[2];}?>">
-                <input value="<?php if(isset($procceses[3])) {echo $procceses[3];}?>">
-                <input value="<?php if(isset($procceses[4])) {echo $procceses[4];}?>">
+                <?php
+                    for($i=0;$i < count($procceses);$i++)
+                    {
+                        echo "<input value='".$procceses[$i]."'>";
+                    }
+                ?>
             </div>
         </div>
     </div>
@@ -182,17 +192,35 @@ else
             <div class="fleft box-header">Kullanılan Malzeme</div>
             <div class="fleft box-3">
                 <div class="details-header">Adet</div>
-                <input value="<?php if(isset($pieces[0])) {echo $pieces[0];}?>">
-                <input value="<?php if(isset($pieces[1])) {echo $pieces[1];}?>">
-                <input value="<?php if(isset($pieces[2])) {echo $pieces[2];}?>">
-                <input value="<?php if(isset($pieces[3])) {echo $pieces[3];}?>">
+                <?php
+                    if(strlen($piece)>1)
+                    {
+                        for($i=0;$i < count($piece);$i++)
+                        {
+                            echo "<input value='".$piece[$i]."'>";
+                        }
+                    }
+                    else
+                    {
+                        echo "<input value='".$piece."'>";
+                    }
+                ?>
             </div>
             <div class="fleft box-4">
                 <div class="details-header">Malzeme</div>
-                <input value="<?php if(isset($materials[0])) {echo $materials[0];}?>">
-                <input value="<?php if(isset($materials[1])) {echo $materials[1];}?>">
-                <input value="<?php if(isset($materials[2])) {echo $materials[2];}?>">
-                <input value="<?php if(isset($materials[3])) {echo $materials[3];}?>">
+                <?php
+                if(strlen($material)>1)
+                {
+                    for($i=0;$i < count($materials);$i++)
+                    {
+                        echo "<input value='".$materials[$i]."'>";
+                    }
+                }
+                else
+                {
+                    echo "<input value='".$material."'>";
+                }
+                ?>
             </div>
         </div>
     </div>
@@ -204,10 +232,10 @@ else
     </div>
     <div class="row" style="margin-top: 50px;">
         <div class="col-sm-6 text-sm-right order-sm-1"> <strong>Teslim Alan:</strong>
-            <address>Ad / Soyad<br>İmza<br><br><p style="color:red;"><?php echo $freceiver; ?></p></address>
+            <address>Ad / Soyad<br>İmza<br><br><p style="color:red;"><?php echo $fcustomer; ?></p></address>
         </div>
         <div class="col-sm-6 order-sm-0"> <strong>Teslim Eden:</strong>
-            <address>Ad / Soyad<br>İmza<br><br><p style="color:red;"><?php echo $fperson; ?></p></address>
+            <address>Ad / Soyad<br>İmza<br><br><p style="color:red;"><?php echo $fstaff; ?></p></address>
         </div>
     </div>
     <div id="canvas" class="qr"></div>
@@ -269,16 +297,16 @@ else   /* If Not give an ID Empty Page Load */
 <body id="test">
 <div class="container-fluid invoice-container" id="invoice">
     <header>
-        <div class="row align-items-center">
-            <div class="col-sm-7 text-center text-sm-left mb-3 mb-sm-0">
-                <img id="logo" src="assets/img/logo/<?php echo $_SESSION['group']; ?>logo.png" style="height: 50px;">
-            </div>
-            <div class="col-sm-5 text-center text-sm-right" style="margin-left: -8%;">
-                <h4 class="text-7 mb-0" id="<?php echo $_SESSION['group']; ?>-title" >Cihaz Servis</h4>
-                <h2 class="mb-0" id="<?php echo $_SESSION['group']; ?>-text" style="font-size: 1.2rem">Formu</h2>
-            </div>
-        </div>
-        <hr>
+    <div class="row align-items-center">
+    <div class="col-sm-7 text-center text-sm-left mb-3 mb-sm-0">
+        <img id="logo" src="assets/img/logo/<?php echo $_COOKIE['group'];?>logo.png" style="height: 50px;">
+    </div>
+    <div class="col-sm-5 text-center text-sm-right" style="margin-left: -8%;">
+        <h4 class="text-7 mb-0" id="<?php echo $_COOKIE['group']; ?>-title">Cihaz Servis</h4>
+        <h2 class="mb-0" id="<?php echo $_COOKIE['group']; ?>-text" style="font-size: 1.2rem">Formu</h2>
+    </div>
+    </div>
+    <hr>
     </header>
     <main>
     <div class="row">
