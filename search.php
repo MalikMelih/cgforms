@@ -11,10 +11,9 @@
         {
             $fno = $_GET['no'];
         }
-        echo $fno;
-        $sql = "SELECT * FROM forms WHERE F_No = '$fno'";
-    	$result = mysqli_query($db,$sql);
-    	$row = mysqli_fetch_array($result);
+        $sql = "SELECT * FROM forms WHERE F_No = '$fno' OR F_ENo = '$fno' ORDER BY F_ID DESC LIMIT 1";
+        $result = mysqli_query($db,$sql);
+        $row = mysqli_fetch_array($result);
         if(isset($row[1]))
         {
             $id = $row[1];
@@ -24,6 +23,7 @@
             $_SESSION['fcustomer'] = $row[6];
             $_SESSION['type'] = $row[7];
             $_SESSION['feno'] = $row[8];
+            $_SESSION['pdf'] = $row[10];
             header("location:index.php?pg=".$row[7]."&group=".$row[2]."&no=".$row[1]);
         }
         else

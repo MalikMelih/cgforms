@@ -1,33 +1,19 @@
-<?php   /* Start Php Function */
+<?php //Manual type form date & id config
 //$date = "00/00/0000";
 //$id = "00000000";
-$_SESSION['group'] = isset($_GET['group']);
-if(isset($_GET['eno']) && $_GET['eno']!="")
-{
-    $prnt = $_GET['eno'];
-}
-else if(isset($_GET['sno']) && $_GET['sno']!="")
-{
-    $prnt = $_GET['sno'];
-}
-else
-{
-    $prnt = "";
-}
-    if(isset($_GET['no']))
+    $_SESSION['group'] = isset($_GET['group']);
+    if (isset($_SESSION['pdf']))
     {
-        $fno = $_GET['no'];
-        $sql = "SELECT F_Pdf FROM forms WHERE F_No = '$fno'";
-        $result = mysqli_query($db,$sql);
-        $row = mysqli_fetch_array($result);
-        $pdf = $row[0];
+        $pdf = $_SESSION['pdf'];
     }
     if (isset($pdf) && $pdf==1 && isset($_GET['no']))
     {
         $no = $_GET['no'];
 ?>
-        <!DOCTYPE html>
-        <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="assets/img/logo/logo.png" rel="icon">
@@ -36,15 +22,19 @@ else
         <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="assets/css/all.min.css">
         <link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css">
-        </head>
-        <body>
-            <div id="invoice">
-                <iframe src="docs/pdf/services/<?php echo $no;?>.PDF#toolbar=0" width="100%" height="1070px" style="display: block;margin: 15px auto;max-width: 850px;background-color: #fff;border-radius: 6px;"></iframe>
-            </div>
+    </head>
+    <body>
+        <!-- Test Item -->
+        <a href="javascript:history.back()">
+            <div class="fa fa-arrow-left" style="position: absolute;top: 20px;left: 100px;width: 48px;height: 48px;line-height: 48px;font-size: 25px;text-align: center;background-color: #3a3a3a;border-radius: 64px;color: white;"></div>
+        </a>
+        <!-- /Test Item -->
+        <div id="invoice">
+            <iframe src="docs/pdf/service/<?php echo $no;?>.PDF#toolbar=0&scrollbar=0&navpanes=0&scrollbar=0" width="100%" height="1070px" style="display: block;margin: 15px auto;max-width: 850px;background-color: #fff;border-radius: 6px;"></iframe>
         </div>
-        </body>
-        </html>
-        <?php
+    </body>
+</html>
+    <?php   /* Start Php Function */
     }
     else if(isset($_GET["no"]))
     {
@@ -56,7 +46,7 @@ else
         $type = $_SESSION['type'];
         $sql = "SELECT * FROM forms LEFT JOIN services ON forms.F_No=services.F_No WHERE forms.F_No = '$fno' LIMIT 1";
         $result = mysqli_query($db,$sql);
-    	$row = mysqli_fetch_array($result);
+        $row = mysqli_fetch_array($result);
         if(isset($row['SV_ID']) && $_GET['group']==$row[2])
         {
             $fuser=$row['F_User'];
@@ -251,13 +241,13 @@ else
     </footer>
     </body>
 </html>
-<script type="text/javascript" src="./assets/js/qrcodestyling.js"></script>
+<script type="text/javascript" src="assets/js/qrcodestyling.js"></script>
 <script type="text/javascript">
 
     const qrCode = new QRCodeStyling({
     width: 60,
     height: 60,
-    data: "<?php echo $id; ?>",
+    data: "<?php echo $id." ".$prnt; ?>",
     dotsOptions: {
         color: "#000",
         type: "square"
@@ -419,7 +409,7 @@ else   /* If Not give an ID Empty Page Load */
     </footer>
     </body>
 </html>
-<script type="text/javascript" src="./assets/js/qrcodestyling.js"></script>
+<script type="text/javascript" src="assets/js/qrcodestyling.js"></script>
 <script type="text/javascript">
 
     const qrCode = new QRCodeStyling({
@@ -436,7 +426,7 @@ else   /* If Not give an ID Empty Page Load */
     });
     qrCode.append(document.getElementById("canvas"));
     
-  </script>
+</script>
 <?php
 }   /* End Php Function */
 ?>

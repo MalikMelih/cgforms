@@ -33,7 +33,7 @@ $scrap = $row[0];
     height: 20vh;
     padding: 0 10vw;
 ">
-    <a href="?pg=cargo">
+    <a href="?pg=create&type=cargo">
         <div class="data-box">
             <div class="fas fa-truck-loading white" style="
                 float: left;
@@ -60,7 +60,7 @@ $scrap = $row[0];
                 font-family: 'Alegreya Sans SC', sans-serif;
             "><?php echo $cargo; ?></div></div>
     </a>
-<a href="?pg=services">
+<a href="?pg=create&type=services">
     <div class="data-box">
         <div class="fas fa-box-open white" style="
             float: left;
@@ -87,7 +87,7 @@ $scrap = $row[0];
             font-family: 'Alegreya Sans SC', sans-serif;
         "><?php echo $services; ?></div></div>
 </a>
-<a href="?pg=delivery">
+<a href="?pg=create&type=delivery">
     <div class="data-box">
         <div class="fas fa-box white" style="
             float: left;
@@ -114,7 +114,7 @@ $scrap = $row[0];
             font-family: 'Alegreya Sans SC', sans-serif;
         "><?php echo $delivery; ?></div></div>
 </a>
-<a href="?pg=scrap">
+<a href="?pg=create&type=scrap">
     <div class="data-box">
         <div class="fas fa-dolly-flatbed white" style="
             float: left;

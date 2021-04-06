@@ -12,11 +12,11 @@ include("assets/db"); //Database Connection Page
 	//Group Config
 	if(!isset($_GET['group']))
 	{
-	    $_COOKIE['group'] = "gaz";
+		$_COOKIE['group'] = "gaz";
 	}
 	else
 	{
-	    $_COOKIE['group'] = $_GET['group'];
+		$_COOKIE['group'] = $_GET['group'];
 	}
 
 	//Theme Config
@@ -113,4 +113,19 @@ include("assets/db"); //Database Connection Page
 	$ldate = date("d/m/Y");
 	$date = date("d/m/Y");
 	$time = date("H:i");
+
+	//Qr Write Serial Or Inventory No
+
+	if(isset($_GET['eno']) && $_GET['eno']!="")
+	{
+		$prnt = $_GET['eno'];
+	}
+	else if(isset($_GET['sno']) && $_GET['sno']!="")
+	{
+		$prnt = $_GET['sno'];
+	}
+	else
+	{
+		$prnt = "";
+	}
 ?>
