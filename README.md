@@ -13,7 +13,7 @@ Nasıl Kullanılır;
 
 Örnek şirket için yapılmış çalışmayı inceleyebilirsiniz.
 
-    https://malikmelih.com/cgforms
+    https://cgforms.malikmelih.com/
 [ Kullanıcı Adı: demo ; Parola: demo ]
 
 ![login-page](https://user-images.githubusercontent.com/54374012/210164878-c2f434b4-011c-45b0-8997-b389444842df.png)
